@@ -6,14 +6,18 @@ h1{
 	font-size: 1.1rem!important;
 	font-style: italic!important;
 }
+/*
 h2{
-	font-size: 1rem!important;
-	font-style: italic!important;
+	/*font-size: 1rem!important;
+	font-style: italic!important;*/
 }
+*/
+/*
 h3{
 	font-size: .9rem;
 	font-style: italic;
 }
+*/
 section{
 	clear: both;
 }
@@ -164,6 +168,13 @@ section{
 	transform: scale(1.1)
 	/*-webkit-transition: font-size 1s,  -webkit-transform 1s;
     transition: font-size 1s, padding 1s, transform 1s;*/
+}
+.h_header{
+	color:#0056b3;
+	margin-top:24px;	
+	border-top: 1px solid #0056b3;
+	font-size: 0.9rem!important;
+	font-style: italic!important;
 }
 .hamburger{
 	border: 1px solid #ddd;
