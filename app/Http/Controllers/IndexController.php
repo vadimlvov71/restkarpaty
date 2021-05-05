@@ -8,6 +8,8 @@ use Session;
 use App;
 use Route;
 use Config;
+use App\Models\Catalogs;
+use Lang;
 
 class IndexController extends Controller
 {
@@ -18,13 +20,18 @@ class IndexController extends Controller
 		//echo "getLocale:: ".App::getLocale();
 		//exit;
 		//$products = DB::select('select * from products where id_catalog = ? AND where id_product = ?', ['1', $constants]);
-		$products = DB::table('products')
-            ->select('products.name', 'products.translit')
+		/*$products = DB::table('products')
+            ->select('products.name', 'products.translit', 'products.smallfoto')
             ->where('id_catalog', '1')
             ->whereIn('products.id_product', $constants)
             //->inRandomOrder()
             //->limit(8)
-            ->get();
+            ->get();*/
+		$products = Catalogs::select('products.id_product', 'products.name', 'products.translit', 'products.smallfoto')
+            ->where('id_catalog', '1')
+            ->whereIn('products.id_product', $constants)
+			->get()
+		;
 		$hotel_types = DB::select('select * from hotel_type where karpaty = ?', ['yes']);
 		$dosts = DB::select('select * from dost where id_catalog = ?', ['1']);
 		$articles = DB::select('select * from article where id_catalog = ?', ['1']);
@@ -38,7 +45,8 @@ class IndexController extends Controller
             ->inRandomOrder()
             ->limit(8)
             ->get();
-		$breadcrumbs[] = array('url' => '#', 'text' => 'text');
+		$lang_title = Lang::trans('lang.welcome');
+		$breadcrumbs[] = array( 'text' => $lang_title);
 		/*echo "<pre>";
 		print_r();
 		echo "</pre>";*/

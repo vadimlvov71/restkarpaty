@@ -17,10 +17,10 @@ class Controller extends BaseController
    // public $locale;
     public function __construct()
     {
-		$this->locale = Session::get('locale');
-		//$this->notInGold = config('app.notInGold');
-		View::share ('locale', $this->locale );
-		$this->breadcrumbs[] = array('url' => '/', 'text' => "test");
+		$locale = Session::get('locale');
+		$this->notInGold = config('constants.notInGold');
+		//View::share ('locale', $this->locale );
+		//$this->breadcrumbs[] = array('url' => '/', 'text' => "test");
 	}
 	public function getLocale($request)
     {

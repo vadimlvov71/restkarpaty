@@ -94,7 +94,7 @@ class CatalogController extends Controller
 		///end//menu_rubrics///
 		$lang_title = Lang::trans('lang.welcome');
 		$this->breadcrumbs[] = array('url' => '/', 'text' => $lang_title);
-		$this->breadcrumbs[] = array('text' => $title);
+		$this->breadcrumbs[] = array('text' => $title_menu);
 
         return view('catalog/index', ['title' => $title, 'title_menu'=> $title_menu, 'product' => $product, 'products' => $products, 'dosts' => $dosts, 'menu_rubrics' => $menu_rubrics,
         'articles' => $articles, 'hotels' => $hotels, 'privates' => $privates, 'breadcrumbs' => $this->breadcrumbs, 'locale' => $locale]);     
@@ -135,19 +135,24 @@ class CatalogController extends Controller
 		$lang_title = Lang::trans('lang.welcome');
 		//////menu_rubrics/////
 		if($locale == "ua"){
-			$title = Lang::trans('lang.catalogs_rest')[$id_product];
+			$catalogName = Lang::trans('lang.catalogs')[$id_product];
+		}else{
+			$catalogName = $product->name;
+		}
+		if($hotel_type == "hotels"){
+			$title = Helper::getHotelTypeName(0, $locale)." ".$catalogName;
 			$title_menu = Lang::trans('lang.catalogs')[$id_product];
 		}else{
-			$title = $product->rest;
+			$title = Helper::getHotelTypeName(1, $locale)." ".$catalogName;
 			$title_menu = $product->name;
 		}
 		$menu_rubrics = Helper::rubricMenu($title_menu);
 		///end//menu_rubrics///
 		$breadcrumbs_name = Helper::localeType($hotel_type, $locale);
 		$this->breadcrumbs[] = array('url' => '/', 'text' => $lang_title);
-		$this->breadcrumbs[] = array('url' => $product->translit, 'text' => $product->name);
+		$this->breadcrumbs[] = array('url' => $product->translit, 'text' => $catalogName);
 		$this->breadcrumbs[] = array( 'text' => $breadcrumbs_name);
-        return view('catalog/hotel_type', ['product' => $product, 'products' => $products,  'dosts' => $dosts, 'articles' => $articles, 'test' => $this->notInGold, 'menu_rubrics' => $menu_rubrics,
+        return view('catalog/hotel_type', ['title' => $title, 'product' => $product, 'products' => $products,  'dosts' => $dosts, 'articles' => $articles, 'test' => $this->notInGold, 'menu_rubrics' => $menu_rubrics,
          'hotels' => $hotels, 'hotel_type' => $hotel_type, 'breadcrumbs' => $this->breadcrumbs, 'locale' => $locale, $id_product => $id_product]);      
     }
 	public function info(Request $request){

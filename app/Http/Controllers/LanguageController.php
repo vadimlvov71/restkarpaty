@@ -24,7 +24,7 @@ class LanguageController extends Controller
 					echo "<pre>";
 					print_r(url()->previous());
 					echo "</pre>";
-					//exit;
+					exit;
 					$segments = str_replace(url('/'), '', url()->previous());
 					$segments = array_filter(explode('/', $segments));
 					array_shift($segments);
